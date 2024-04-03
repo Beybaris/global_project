@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:global_project/bloc/transaction_bloc.dart';
-import 'package:global_project/bloc/transaction_event.dart';
-import 'package:global_project/bloc/transaction_state.dart';
+import 'package:global_project/bloc/transaction_bloc/transaction_bloc.dart';
+import 'package:global_project/bloc/transaction_bloc/transaction_event.dart';
+import 'package:global_project/bloc/transaction_bloc/transaction_state.dart';
 import 'package:global_project/core/colorStyles_const.dart';
 import 'package:global_project/core/textStyles_const.dart';
 import 'package:global_project/service/TransactionAPIService.dart';

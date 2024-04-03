@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:global_project/bloc/transaction_event.dart';
-import 'package:global_project/bloc/transaction_state.dart';
+import 'package:global_project/bloc/transaction_bloc/transaction_event.dart';
+import 'package:global_project/bloc/transaction_bloc/transaction_state.dart';
 import 'package:global_project/model/transaction.dart';
 import 'package:global_project/service/TransactionAPIService.dart';
 
