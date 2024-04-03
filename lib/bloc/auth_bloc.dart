@@ -1,21 +1,31 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:global_project/bloc/auth_event.dart';
 import 'package:global_project/bloc/auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthInitial());
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
+  final FirebaseAuth _firebaseAuth;
 
-  @override
-  Stream<AuthState> mapEventToState(AuthEvent event) async* {
-    if (event is SignInButtonPressed) {
-      yield AuthLoading();
-      try {
-        // Simulate sign-in process (replace with your actual sign-in logic)
-        await Future.delayed(Duration(seconds: 2));
-        yield Authenticated();
-      } catch (e) {
-        yield AuthError('Failed to sign in: $e');
-      }
+  AuthenticationBloc({required FirebaseAuth firebaseAuth})
+      : _firebaseAuth = firebaseAuth,
+        super(AuthenticationInitial()) {
+    on<AuthenticationSignInRequested>(_mapSignInRequestedToState);
+  }
+
+  Stream<AuthenticationState> _mapSignInRequestedToState(
+      AuthenticationSignInRequested event,
+      Emitter<AuthenticationState> emit) async* {
+    yield AuthenticationLoading();
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: event.email,
+        password: event.password,
+      );
+      yield AuthenticationAuthenticated();
+    } catch (error) {
+      yield AuthenticationFailure(error.toString());
     }
   }
 }
