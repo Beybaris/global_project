@@ -1,8 +1,8 @@
 abstract class TransactionState {}
 
-class  TransactionInitialState extends TransactionState{}
+class TransactionInitialState extends TransactionState {}
 
-class TransactionLoadingState extends TransactionState{}
+class TransactionLoadingState extends TransactionState {}
 
 class TransactionSuccessState extends TransactionState {
   final String message;

@@ -18,4 +18,8 @@ class ColorStyles {
   static const whiteSmokeColor = Color(0xffEFEFEF);
 
   static const gray800Color = Color(0xff1F2937);
+
+  static const gray700Color = Color(0xff374151);
+
+  static const bottomIconColor = Color(0xff560BAD);
 }

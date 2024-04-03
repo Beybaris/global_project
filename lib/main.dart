@@ -127,40 +127,60 @@ class MyApp extends StatelessWidget {
                   height: 32,
                 ),
                 Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                        gradient: LinearGradient(colors: [
-                          Color(0xff9F79C8),
-                          Color(0xffA47FCA),
-                          Color(0xffB491D3),
-                          Color(0xff9F79C8),
-                          Color(0xffCDAFE1),
-                          Color(0xffD1B4E3),
-                          Color(0xffDAC3E8),
-                          Color(0xff9F79C8),
-                          Color(0xffEBDEF3),
-                        ])),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: GradientText(
-                              'Create multiple savings plan!Get access to quick loans!Payment made easy with virtual cards ',
-                              style: TextStyles.greyDarkRegularStyle.copyWith(
-                                  fontSize: 14, color: ColorStyles.blackColor),
-                              colors: const [
-                                Color(0xff696670),
-                                Color(0xff000000),
-                              ],
-                            ),
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                      gradient: LinearGradient(colors: [
+                        Color(0xff9F79C8),
+                        Color(0xffA47FCA),
+                        Color(0xffB491D3),
+                        Color(0xff9F79C8),
+                        Color(0xffCDAFE1),
+                        Color(0xffD1B4E3),
+                        Color(0xffDAC3E8),
+                        Color(0xff9F79C8),
+                        Color(0xffEBDEF3),
+                      ])),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: GradientText(
+                            'Create multiple savings plan!Get access to quick loans!Payment made easy with virtual cards ',
+                            style: TextStyles.greyDarkRegularStyle.copyWith(
+                                fontSize: 14, color: ColorStyles.blackColor),
+                            colors: const [
+                              Color(0xff696670),
+                              Color(0xff000000),
+                            ],
                           ),
                         ),
-                        Image.asset("assets/images/bank.png"),
-                      ],
-                    ))
+                      ),
+                      Image.asset("assets/images/bank.png"),
+                    ],
+                  ),
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Text('Transactions'), Text('View all')],
+                ),
+                MockAPIFetchWidget(),
               ],
             ),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.dashboard), label: 'Dashboard'),
+              BottomNavigationBarItem(icon: Icon(Icons.abc), label: 'Savings'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.money), label: 'Bill payment'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle_outlined), label: 'Profile')
+            ],
+            currentIndex: 0,
+            selectedItemColor: ColorStyles.bottomIconColor,
+            unselectedItemColor: ColorStyles.gray700Color,
           ),
         ),
       ),
@@ -168,31 +188,31 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class MockAPIFetchWidget extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     // Access the BLoC
-//     final bloc = BlocProvider.of<TransactionBloc>(context);
+class MockAPIFetchWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Access the BLoC
+    final bloc = BlocProvider.of<TransactionBloc>(context);
 
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: <Widget>[
-//         BlocBuilder<TransactionBloc, TransactionState>(
-//           builder: (context, state) {
-//             if (state is TransactionLoadingState) {
-//               return const CircularProgressIndicator();
-//             } else if (state is TransactionSuccessState) {
-//               return Text(state.message);
-//             } else if (state is TransactionErrorState) {
-//               return Text('Error: ${state.error}');
-//             }
-//             return ElevatedButton(
-//               onPressed: () => bloc.add(TransactionLoadEvent()),
-//               child: Text('Fetch Data'),
-//             );
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        BlocBuilder<TransactionBloc, TransactionState>(
+          builder: (context, state) {
+            if (state is TransactionLoadingState) {
+              return const CircularProgressIndicator();
+            } else if (state is TransactionSuccessState) {
+              return Text(state.message);
+            } else if (state is TransactionErrorState) {
+              return Text('Error: ${state.error}');
+            }
+            return ElevatedButton(
+              onPressed: () => bloc.add(TransactionLoadEvent()),
+              child: Text('Fetch Data'),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
