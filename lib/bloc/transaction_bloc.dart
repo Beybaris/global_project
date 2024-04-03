@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:global_project/bloc/transaction_event.dart';
 import 'package:global_project/bloc/transaction_state.dart';
@@ -14,7 +16,10 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
       try {
         final data = await transactionAPIService.fetchData();
-        emit(TransactionSuccessState(data));
+        final jsonData = json.decode(data) as List;
+        final transactions =
+            jsonData.map((jsonItem) => Transaction.fromJson(jsonItem)).toList();
+        emit(TransactionSuccessState(transactions));
       } catch (e) {
         emit(TransactionErrorState(e.toString()));
       }

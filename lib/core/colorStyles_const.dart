@@ -22,4 +22,14 @@ class ColorStyles {
   static const gray700Color = Color(0xff374151);
 
   static const bottomIconColor = Color(0xff560BAD);
+
+  static const receiveCardColor = Color(0xffF3E8FF);
+
+  static const nameOfTransitionColor = Color(0xff282828);
+
+  static const idOfTransactionColor = Color(0xff4F4F4F);
+
+  static const withdrawColor = Color(0xff27AE60);
+
+  static const bottomBorderColor = Color(0xffB0AFB0);
 }
