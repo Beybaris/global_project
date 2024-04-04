@@ -9,8 +9,21 @@ import 'package:global_project/core/textStyles_const.dart';
 import 'package:global_project/service/TransactionAPIService.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final transactionApiService = TransactionAPIService();
+
+  int selectedIndex = 0;
+
+  void _onItemTapped(int value) {
+    setState(() {
+      selectedIndex = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,9 +183,23 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text('Transactions'), Text('View all')],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Transactions',
+                          style: TextStyles.greyDarkRegularStyle
+                              .copyWith(color: ColorStyles.gray29Color),
+                        ),
+                        Text(
+                          'View all',
+                          style: TextStyles.greyDarkMediumStyle
+                              .copyWith(color: ColorStyles.purpleColor),
+                        )
+                      ],
+                    ),
                   ),
                   MockAPIFetchWidget(),
                 ],
@@ -189,9 +216,13 @@ class HomePage extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle_outlined), label: 'Profile')
             ],
-            currentIndex: 0,
+            currentIndex: selectedIndex,
+            onTap: _onItemTapped,
             selectedItemColor: ColorStyles.bottomIconColor,
             unselectedItemColor: ColorStyles.gray700Color,
+            unselectedLabelStyle: TextStyles.greyDarkRegularStyle.copyWith(
+                fontSize: 12, color: ColorStyles.bottomNavigationLabelColor),
+            showUnselectedLabels: true,
           ),
         ),
       ),
@@ -236,14 +267,18 @@ class MockAPIFetchWidget extends StatelessWidget {
                                   color: ColorStyles.receiveCardColor,
                                 ),
                                 child: ClipRect(
-                                  child: Image.asset(
-                                      "assets/images/card-receive.png"),
+                                  child: state.transactions[index].isUp!
+                                      ? Image.asset(
+                                          "assets/images/card-receive.png")
+                                      : Image.asset(
+                                          "assets/images/card-send.png"),
                                 ),
                               ),
                               const SizedBox(
                                 width: 16,
                               ),
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     state.transactions[index].name!,
@@ -273,7 +308,10 @@ class MockAPIFetchWidget extends StatelessWidget {
                           Text(
                             '\$${state.transactions[index].amount!}',
                             style: TextStyles.greyDarkMediumStyle.copyWith(
-                                fontSize: 14, color: ColorStyles.withdrawColor),
+                                fontSize: 14,
+                                color: state.transactions[index].isUp!
+                                    ? ColorStyles.withdrawColor
+                                    : ColorStyles.redColor),
                           )
                         ],
                       ),

@@ -32,4 +32,12 @@ class ColorStyles {
   static const withdrawColor = Color(0xff27AE60);
 
   static const bottomBorderColor = Color(0xffB0AFB0);
+
+  static const redColor = Color(0xffEB5757);
+
+  static const purpleColor = Color(0xff560BAD);
+
+  static const gray29Color = Color(0xff4A4A4A);
+
+  static const bottomNavigationLabelColor = Color(0xff374151);
 }
